@@ -63,6 +63,13 @@ const makeCards = (id, data)=>{
             </div>
         `;
 
+        if(i==data.length - 1){
+            setTimeout(()=>{
+                setupScrolling();
+                    
+            }, 100);
+        }
+
 
     })
 }
