@@ -15,5 +15,9 @@
     "url": "https://github.com/austinechisutia/newnetflixApp/issues"
   },
   "homepage": "https://github.com/austinechisutia/newnetflixApp#readme",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "express.js": "^1.0.0",
+    "nodemon": "^3.1.9"
+  }
 }
