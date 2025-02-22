@@ -1,4 +1,4 @@
-const main = document.getElementById('main');
+const main = document.querySelector('.main');
 
 fetch(genres_list_http + new URLSearchParams({
     api_key: api_key
@@ -22,6 +22,7 @@ fetch(genres_list_http + new URLSearchParams({
         .then(res => res.json())    
         .then(data=>{
             makeCategoryElement(`${genres}_movies`, data.results);
+            console.log(data);
         })
         .catch(error => console.log(error));
     };
@@ -32,8 +33,8 @@ fetch(genres_list_http + new URLSearchParams({
             <button class="pre-btn">
                 <img src="images/pre.png" alt="">
             </button>
-            <h1 class="movie-category">Popular Movies</h1>
-            <div class="movie-container">
+            <h1 class="movie-category">${category.split("_").join(" ")}</h1>
+            <div class="movie-container" id="${category}">
                 
             </div>
 
@@ -43,5 +44,31 @@ fetch(genres_list_http + new URLSearchParams({
 
 
         </div>
-        `
+        `;
+        makeCards(category, data);
     }
+
+    const makeCards = (id, data) => {
+        const movieContainer = document.getElementById(id);
+        data.forEach((item, i)=>{
+            if(item.backdrop_path == null){
+                item.backdrop_path = item.poster_path;
+                if(item.backdrop_path == null){
+                    return;
+                }
+            }
+
+            movieContainer.innerHTML += `
+                <div class="movie" onclick="location.href='/${item.id}'">
+                    <img src="${image_url}${item.backdrop_path}" alt="">
+                    <p class="movie-title">${item.title}</p>
+                </div>
+            `;
+
+            if(i==data.length-1){
+                setTimeout(()=>{
+                    setupScrolling();
+                }, 100)
+            }
+        })
+     }
