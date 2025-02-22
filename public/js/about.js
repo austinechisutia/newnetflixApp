@@ -59,6 +59,36 @@ fetch(`${movie_detail_http}${movie_id}/videos?` + new URLSearchParams({
 .then(res=>res.json())
 .then(data=>{
     console.log(data);
-    let  trailerContainer = document.querySelector('.trailerContainer');
+    let  trailerContainer = document.querySelector('.trailer-container');
+
+    let maxClips = (data.results.length < 4) ? 4 : data.results.length;
+    for(let i=0; i<maxClips; i++){
+        trailerContainer.innerHTML += `
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/${data.results[i].key}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        `;
+    }
     
 })
+
+// fetching similar movies
+fetch(`${movie_detail_http}${movie_id}/similar?` + new URLSearchParams({
+    api_key: api_key
+}))
+
+.then(res=>res.json())
+.then(data=>{
+    console.log(data);
+    let similarMovies = document.querySelector('.recomendations-container');
+    for(let i=0; i<16; i++){
+       if(data.results[i].backdrop_path == null){
+            i++;
+       }
+       similarMovies.innerHTML += `
+       <div class="movie" onclick="location.href='/${data.results[i].id}'">
+               <img src="${image_url}${data.results[i].backdrop_path}" alt="">
+               <p class="movie-title">${data.results[i].title}</p>
+       </div>
+   `;
+    }
+}
+)
