@@ -1,0 +1,23 @@
+{
+  "name": "netflixmovieapp",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/austinechisutia/newnetflixApp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/austinechisutia/newnetflixApp/issues"
+  },
+  "homepage": "https://github.com/austinechisutia/newnetflixApp#readme",
+  "description": "",
+  "dependencies": {
+    "express.js": "^1.0.0",
+    "nodemon": "^3.1.9"
+  }
+}
